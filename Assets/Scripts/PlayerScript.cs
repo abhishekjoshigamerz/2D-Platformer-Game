@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-      public float sp=5f;
-    public Animator Animator;
-    public BoxCollider2D boxCollider;
+      public float playerSpeed=5f;
+
+
+[SerializeField]
+    private  Animator Animator;
+    
+[SerializeField]
+    private BoxCollider2D boxCollider;
 
     private Vector2 OriginalSizeCollider,OriginalColliderOffset;
     private Rigidbody2D Playerbody;
@@ -17,14 +22,14 @@ public class PlayerScript : MonoBehaviour
     public Transform groundCheckPosition;
     public LayerMask groundLayer;
     // Start is called before the first frame update
+    void Awake(){
+         boxCollider = GetComponent<BoxCollider2D>(); 
+         Playerbody = GetComponent<Rigidbody2D>();
+    }
     void Start()
     {
-       boxCollider = GetComponent<BoxCollider2D>(); 
-       Playerbody = GetComponent<Rigidbody2D>();
        OriginalSizeCollider = boxCollider.size;
        OriginalColliderOffset = boxCollider.offset;
-        
-       
     }
 
     // Update is called once per frame
@@ -42,13 +47,13 @@ public class PlayerScript : MonoBehaviour
     void ChangeDirection(float speed){
          Vector3 scale = transform.localScale; 
         if(speed < 0){   
-            Playerbody.velocity = new Vector2(-sp,Playerbody.velocity.y);
+            Playerbody.velocity = new Vector2(-playerSpeed,Playerbody.velocity.y);
             scale.x = - 1 * Mathf.Abs(scale.x);
-            Debug.Log(speed);
+           
         } else if(speed > 0){
-                Playerbody.velocity = new Vector2(sp,Playerbody.velocity.y);
-               scale.x = Mathf.Abs(scale.x); 
-               Debug.Log(speed);
+                Playerbody.velocity = new Vector2(playerSpeed,Playerbody.velocity.y);
+                scale.x = Mathf.Abs(scale.x); 
+              
         }else{
             Playerbody.velocity= new Vector2(0,Playerbody.velocity.y);
         }
@@ -59,20 +64,25 @@ public class PlayerScript : MonoBehaviour
         if(Input.GetKey(KeyCode.LeftControl)){
                 IsCrouching= true;
                 Animator.SetBool("IsCrouch",true);
-            
-            
-             boxCollider.size = new Vector2(boxCollider.size.x,1.2f);
-             boxCollider.offset = new Vector2(boxCollider.offset.x,.6f);  
+              
             }else{
                  IsCrouching= false;
                    
            Animator.SetBool("IsCrouch",false);
+                
+            }
+            SetColliderSize(IsCrouching);
+        }
+
+        void SetColliderSize(bool crouchstatus){
+            if(IsCrouching==true){
+                 boxCollider.size = new Vector2(boxCollider.size.x,1.2f);
+             boxCollider.offset = new Vector2(boxCollider.offset.x,.6f);
+            }else{
                  boxCollider.size = OriginalSizeCollider; 
                  boxCollider.offset = OriginalColliderOffset;
             }
         }
-
-
         void CheckGrounded(){
           IsGrounded = Physics2D.Raycast(groundCheckPosition.position,Vector2.down,0.1f,groundLayer);
 
