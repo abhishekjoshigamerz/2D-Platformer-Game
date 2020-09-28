@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-      public float playerSpeed=5f;
+      private float playerSpeed=5f;
 
 
 [SerializeField]
@@ -19,8 +19,10 @@ public class PlayerScript : MonoBehaviour
     private bool IsCrouching=false;
     private bool IsGrounded=true;
     private bool jumped;
-    public Transform groundCheckPosition;
-    public LayerMask groundLayer;
+    [SerializeField]
+    private Transform groundCheckPosition;
+    [SerializeField]
+    private LayerMask groundLayer;
     // Start is called before the first frame update
     void Awake(){
          boxCollider = GetComponent<BoxCollider2D>(); 
