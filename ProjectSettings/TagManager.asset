@@ -49,9 +49,9 @@ TagManager:
   - name: Background enviornment
     uniqueID: 3323697437
     locked: 0
-  - name: PlayerLayer
-    uniqueID: 4283255747
-    locked: 0
   - name: Teleport layer
     uniqueID: 2128870085
+    locked: 0
+  - name: PlayerLayer
+    uniqueID: 4283255747
     locked: 0
