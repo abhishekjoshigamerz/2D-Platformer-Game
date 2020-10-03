@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerScript : MonoBehaviour
 {
       private float playerSpeed=5f;
@@ -12,18 +12,23 @@ public class PlayerScript : MonoBehaviour
     
 [SerializeField]
     private BoxCollider2D boxCollider;
-
+[SerializeField]
+private BoxCollider2D fall;
+private bool isDeath;
     private Vector2 OriginalSizeCollider,OriginalColliderOffset;
     private Rigidbody2D Playerbody;
     private float resize;
     private bool IsCrouching=false;
     private bool IsGrounded=true;
     private bool jumped;
-    private float jumpdistance=1f;
+    [SerializeField]
+    private float jumpdistance;
     [SerializeField]
     private Transform groundCheckPosition;
     [SerializeField]
     private LayerMask groundLayer;
+    Scene thisScene;
+     
     // Start is called before the first frame update
     void Awake(){
          boxCollider = GetComponent<BoxCollider2D>(); 
@@ -31,6 +36,7 @@ public class PlayerScript : MonoBehaviour
     }
     void Start()
     {
+      isDeath=false;
        OriginalSizeCollider = boxCollider.size;
        OriginalColliderOffset = boxCollider.offset;
     }
@@ -46,8 +52,18 @@ public class PlayerScript : MonoBehaviour
         Crouch();
         CheckGrounded();
         Jump(vertical);
+        
+       
+        CheckPlayerStatus();
+    }
+    void CheckPlayerStatus(){
+        if(isDeath){
+             thisScene = SceneManager.GetActiveScene();
+             SceneManager.LoadScene(thisScene.name);
+        }
     }
 
+   
     void MovePlayer(float horizontal){
         Vector3 position = transform.position;
         position.x= position.x + horizontal * playerSpeed * Time.deltaTime;
@@ -112,7 +128,8 @@ public class PlayerScript : MonoBehaviour
          if(IsGrounded){
              if(vertical>0){
                  jumped=true;
-                 Playerbody.AddForce(new Vector2(0f,jumpdistance),ForceMode2D.Force);
+                 Playerbody.velocity = new Vector2(Playerbody.velocity.x,jumpdistance);
+               
                  Animator.SetBool("IsJump",true);
              }
          }
