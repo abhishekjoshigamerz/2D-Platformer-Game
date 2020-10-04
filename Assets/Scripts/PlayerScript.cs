@@ -13,8 +13,8 @@ public class PlayerScript : MonoBehaviour
 [SerializeField]
     private BoxCollider2D boxCollider;
 [SerializeField]
-private BoxCollider2D fall;
-private bool isDeath;
+
+
     private Vector2 OriginalSizeCollider,OriginalColliderOffset;
     private Rigidbody2D Playerbody;
     private float resize;
@@ -27,7 +27,9 @@ private bool isDeath;
     private Transform groundCheckPosition;
     [SerializeField]
     private LayerMask groundLayer;
-    Scene thisScene;
+    [SerializeField]
+    private ScoreController scoreController;
+    
      
     // Start is called before the first frame update
     void Awake(){
@@ -36,7 +38,6 @@ private bool isDeath;
     }
     void Start()
     {
-      isDeath=false;
        OriginalSizeCollider = boxCollider.size;
        OriginalColliderOffset = boxCollider.offset;
     }
@@ -47,22 +48,12 @@ private bool isDeath;
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
         Animator.SetFloat("Speed", Mathf.Abs(horizontal));
-        ChangeDirection(horizontal);
-       
+        ChangeDirection(horizontal);  
         Crouch();
         CheckGrounded();
         Jump(vertical);
-        
-       
-        CheckPlayerStatus();
     }
-    void CheckPlayerStatus(){
-        if(isDeath){
-             thisScene = SceneManager.GetActiveScene();
-             SceneManager.LoadScene(thisScene.name);
-        }
-    }
-
+   
    
     void MovePlayer(float horizontal){
         Vector3 position = transform.position;
@@ -116,26 +107,31 @@ private bool isDeath;
 
         void CheckGrounded(){
           IsGrounded = Physics2D.Raycast(groundCheckPosition.position,Vector2.down,0.1f,groundLayer);
-
           if(IsGrounded){
               if(jumped){
                   jumped = false;
-                  Animator.SetBool("IsJump",false);
+                  Animator.SetBool("IsJump",false); 
               }
           }
         }
         void Jump(float vertical){
+           
          if(IsGrounded){
              if(vertical>0){
-                 jumped=true;
-                 Playerbody.velocity = new Vector2(Playerbody.velocity.x,jumpdistance);
-               
+                jumped=true;
+                // Playerbody.AddForce(new Vector2(0f,20),ForceMode2D.Force);
+               Playerbody.velocity = new Vector2(Playerbody.velocity.x,jumpdistance);
+                //Playerbody.AddForce();
                  Animator.SetBool("IsJump",true);
+                  
              }
          }
         }
          
-    
+        public void PickUpKey(){
+            Debug.Log("Player picked up the key!");
+            scoreController.IncreaseScore(10);
+        }
 
    
 }
