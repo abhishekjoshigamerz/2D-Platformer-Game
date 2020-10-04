@@ -30,7 +30,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     private ScoreController scoreController;
     
-     
+    private IEnumerator coroutine;
+    private bool dead=false; 
     // Start is called before the first frame update
     void Awake(){
          boxCollider = GetComponent<BoxCollider2D>(); 
@@ -52,6 +53,7 @@ public class PlayerScript : MonoBehaviour
         Crouch();
         CheckGrounded();
         Jump(vertical);
+        ReloadGame();
     }
    
    
@@ -127,11 +129,30 @@ public class PlayerScript : MonoBehaviour
              }
          }
         }
-         
+        public void KillPlayer(){
+            Animator.SetBool("IsDead",true);
+            dead=true;
+        }  
+
+
         public void PickUpKey(){
             Debug.Log("Player picked up the key!");
             scoreController.IncreaseScore(10);
         }
 
+        private void ReloadGame(){
+            if(dead){
+                Animator.SetBool("IsDead",true);
+                coroutine=waitThreeSeconds(3.0f); 
+                StartCoroutine(coroutine);
+            }
+          
+        }
+
+        private IEnumerator waitThreeSeconds(float waitTime){
+             yield return new WaitForSeconds(waitTime);
+             int  nextSceneIndex = SceneManager.GetActiveScene().buildIndex;
+             SceneManager.LoadScene(nextSceneIndex);
+         }
    
 }

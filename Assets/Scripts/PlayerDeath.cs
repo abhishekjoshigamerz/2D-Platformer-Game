@@ -6,9 +6,8 @@ public class PlayerDeath : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.GetComponent<PlayerScript>() != null){
-            //Application.LoadLevel(Application.loadedLevel);
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+           PlayerScript player = other.gameObject.GetComponent<PlayerScript>();
+           player.KillPlayer();
         }
     }
 }
