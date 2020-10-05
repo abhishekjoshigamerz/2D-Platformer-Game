@@ -4,18 +4,30 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+   [SerializeField]
+    private float enemyspeed = 1f;
+    private Rigidbody2D enemybody;
+    private Animator animator;
+    private bool moveLeft;
 
     
-    // Start is called before the first frame update
+    [SerializeField]
+    private Transform DownCollision;
+    void Awake(){
+        enemybody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
     void Start()
     {
-        
+        moveLeft=true;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+
+        EnemyMovement();
+         CheckCollision();
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
@@ -23,5 +35,36 @@ public class EnemyController : MonoBehaviour
             PlayerScript player= other.gameObject.GetComponent<PlayerScript>();
             player.KillPlayer();
         }
+
+        if(!other.gameObject.GetComponent<PlayerScript>()){
+            ChangeDirection();
+        }
+
+       
+    }
+
+    void EnemyMovement(){
+        if(moveLeft){
+            transform.Translate(-1*Time.deltaTime * enemyspeed,0,0);
+           // enemybody.velocity = new Vector2(-enemyspeed,enemybody.velocity.y);
+        }else{
+           transform.Translate(1*Time.deltaTime * enemyspeed,0,0);
+        }
+    }
+    void CheckCollision(){
+       if(!Physics2D.Raycast(DownCollision.position,Vector2.down,0.1f)){
+           ChangeDirection();
+       }
+    }
+
+    void ChangeDirection(){
+        moveLeft = !moveLeft;
+        Vector3 tempScale = transform.localScale;
+        if(moveLeft){
+            tempScale.x = -Mathf.Abs(tempScale.x);
+        }else{
+             tempScale.x = Mathf.Abs(-tempScale.x);
+        }
+        transform.localScale = tempScale;
     }
 }
