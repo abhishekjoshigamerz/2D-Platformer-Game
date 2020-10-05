@@ -2,32 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class SecondEnemyController : MonoBehaviour
 {
-   [SerializeField]
     private float enemyspeed = 1f;
     private Rigidbody2D enemybody;
     private Animator animator;
     private bool moveLeft;
 
-    
-    [SerializeField]
-    private Transform DownCollision;
+
+
     void Awake(){
         enemybody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
     void Start()
     {
-        moveLeft=true;
+        moveLeft=false;
     }
 
-    
-    void Update()
+   void Update()
     {
 
         EnemyMovement();
-        CheckCollision();
+        
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
@@ -49,20 +46,7 @@ public class EnemyController : MonoBehaviour
            transform.Translate(1*Time.deltaTime * enemyspeed,0,0);
         }
     }
-    void CheckCollision(){
-       if(!Physics2D.Raycast(DownCollision.position,Vector2.down,0.1f)){
-           ChangeDirection();
-       }
-    }
+   
 
-    void ChangeDirection(){
-        moveLeft = !moveLeft;
-        Vector3 tempScale = transform.localScale;
-        if(moveLeft){
-            tempScale.x = -Mathf.Abs(tempScale.x);
-        }else{
-             tempScale.x = Mathf.Abs(-tempScale.x);
-        }
-        transform.localScale = tempScale;
-    }
+    
 }
