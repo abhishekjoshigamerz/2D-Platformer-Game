@@ -33,19 +33,24 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator coroutine;
     private bool dead=false; 
     // Start is called before the first frame update
+
+    public int SceneIndex;
     void Awake(){
          boxCollider = GetComponent<BoxCollider2D>(); 
          Playerbody = GetComponent<Rigidbody2D>();
+         
     }
     void Start()
     {
        OriginalSizeCollider = boxCollider.size;
        OriginalColliderOffset = boxCollider.offset;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+        SceneIndex = SceneManager.GetActiveScene().buildIndex;
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Jump");
         Animator.SetFloat("Speed", Mathf.Abs(horizontal));
@@ -87,7 +92,7 @@ public class PlayerScript : MonoBehaviour
         if(Input.GetKey(KeyCode.LeftControl)){
                 IsCrouching= true;
                 Animator.SetBool("IsCrouch",true);
-              
+                
             }else{
                  IsCrouching= false;
                    
@@ -131,6 +136,7 @@ public class PlayerScript : MonoBehaviour
         }
         public void KillPlayer(){
             Animator.SetBool("IsDead",true);
+            
             dead=true;
         }  
 
@@ -151,8 +157,7 @@ public class PlayerScript : MonoBehaviour
 
         private IEnumerator waitThreeSeconds(float waitTime){
              yield return new WaitForSeconds(waitTime);
-             int  nextSceneIndex = SceneManager.GetActiveScene().buildIndex;
-             SceneManager.LoadScene(nextSceneIndex);
+             SceneManager.LoadScene(1);
          }
    
 }

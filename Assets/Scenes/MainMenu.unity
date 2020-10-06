@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 163935807}
   - component: {fileID: 163935806}
   - component: {fileID: 163935805}
+  - component: {fileID: 163935809}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -215,6 +216,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &163935809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163935804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26ba3bd4dd6f73e4d8ebf8741ad85988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &291901684
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +306,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 291901687}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 163935809}
+        m_MethodName: PlayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &291901687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,7 +796,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 970662180}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 163935809}
+        m_MethodName: ExitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &970662180
 MonoBehaviour:
   m_ObjectHideFlags: 0
