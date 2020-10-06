@@ -143,7 +143,7 @@ public class PlayerScript : MonoBehaviour
         private void ReloadGame(){
             if(dead){
                 Animator.SetBool("IsDead",true);
-                coroutine=waitThreeSeconds(3.0f); 
+                coroutine=waitThreeSeconds(2.0f); 
                 StartCoroutine(coroutine);
             }
           
