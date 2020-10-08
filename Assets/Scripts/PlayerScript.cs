@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class PlayerScript : MonoBehaviour
 {
       private float playerSpeed=5f;
@@ -28,16 +29,18 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     private LayerMask groundLayer;
     [SerializeField]
-    private ScoreController scoreController;
+    public ScoreController scoreController;
     
     private IEnumerator coroutine;
     private bool dead=false; 
+    
     // Start is called before the first frame update
 
     public int SceneIndex;
     void Awake(){
          boxCollider = GetComponent<BoxCollider2D>(); 
          Playerbody = GetComponent<Rigidbody2D>();
+         //scoreController = GetComponent<ScoreController>();
          
     }
     void Start()
@@ -135,9 +138,10 @@ public class PlayerScript : MonoBehaviour
          }
         }
         public void KillPlayer(){
-            Animator.SetBool("IsDead",true);
+           
             
-            dead=true;
+                 dead=true;
+           
         }  
 
 
@@ -149,7 +153,7 @@ public class PlayerScript : MonoBehaviour
         private void ReloadGame(){
             if(dead){
                 Animator.SetBool("IsDead",true);
-                coroutine=waitThreeSeconds(2.0f); 
+                coroutine=waitThreeSeconds(1.0f); 
                 StartCoroutine(coroutine);
             }
           

@@ -33,7 +33,12 @@ public class EnemyController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.GetComponent<PlayerScript>() != null){
             PlayerScript player= other.gameObject.GetComponent<PlayerScript>();
-            player.KillPlayer();
+            PlayerLifeController playerlife = other.gameObject.GetComponent<PlayerLifeController>();
+            playerlife.ReduceHealth();
+            if(!playerlife.CheckIfAlive()){
+                player.KillPlayer();
+            }
+           
         }
 
      

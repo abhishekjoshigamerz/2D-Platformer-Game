@@ -42,7 +42,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 3126901244570186982}
   - component: {fileID: 3126901244570186983}
   - component: {fileID: 3126901244570186984}
+  - component: {fileID: 752363671}
   m_Layer: 8
   m_Name: Player 1
   m_TagString: Player
@@ -184,7 +185,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -11711549
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1fa29ad54380226498c2250e612fec93, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -277,9 +278,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Animator: {fileID: 3146615255267603887}
   boxCollider: {fileID: 3126901244570186983}
-  isDeath: 0
+  OriginalSizeCollider: {x: 0, y: 0}
+  OriginalColliderOffset: {x: 0, y: 0}
   jumpdistance: 5
   groundCheckPosition: {fileID: 3126901244628405237}
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
+  scoreController: {fileID: 0}
+  SceneIndex: 0
+--- !u!114 &752363671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5820770363318008895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2d615309c25fd54da4f437cf2d149d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  numofHearts: 3
+  Hearts: []
+  fullHeart: {fileID: 0}
+  emptyHeart: {fileID: 0}
