@@ -212,11 +212,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3126901244570186982, guid: 10334e6b73600c2448e0d690bfecf333,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 1.6
+      objectReference: {fileID: 0}
     - target: {fileID: 3126901244570186984, guid: 10334e6b73600c2448e0d690bfecf333,
         type: 3}
       propertyPath: scoreController
       value: 
       objectReference: {fileID: 1448268823}
+    - target: {fileID: 3126901244570186984, guid: 10334e6b73600c2448e0d690bfecf333,
+        type: 3}
+      propertyPath: jumpdistance
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5820770363318008895, guid: 10334e6b73600c2448e0d690bfecf333,
         type: 3}
       propertyPath: m_Name

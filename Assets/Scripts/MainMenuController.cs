@@ -10,6 +10,7 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayButton(){
         //SceneManager.LoadScene(2);
+        SoundManager.Instance.Play(Sounds.ButtonClick);
         LevelSelection.SetActive(true);  
     }
 

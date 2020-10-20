@@ -17,12 +17,15 @@ private void onClick(){
     switch(levelStatus)
     {
         case LevelStatus.Locked:
-            Debug.Log("Can't play this level till you unlock it");
+        SoundManager.Instance.Play(Sounds.ButtonClick);
+         //   Debug.Log("Can't play this level till you unlock it");
             break;
         case LevelStatus.Unlocked:
+        SoundManager.Instance.Play(Sounds.ButtonClick);
          SceneManager.LoadScene(LevelName);
             break;
         case LevelStatus.Completed:
+       SoundManager.Instance.Play(Sounds.ButtonClick);
           SceneManager.LoadScene(LevelName);
             break;
     }
